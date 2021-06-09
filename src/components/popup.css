@@ -1,0 +1,15 @@
+.p-container {
+    display: none;
+    text-align: center;
+    margin: -100px 200px 0px 200px;
+    border: 1px solid black;
+    padding: 30px;
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    width: 640px;
+}
+
+.selected {
+    display: block;
+}

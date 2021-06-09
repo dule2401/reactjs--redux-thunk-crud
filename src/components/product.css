@@ -1,0 +1,25 @@
+.nav-table {
+display: flex;
+justify-content: space-between;
+}
+.nav-table > button {
+margin-right: 100px;
+outline: none;
+width: 100px;
+background-color: blue;
+color: white;
+border: none;
+border-radius: 5px;
+}
+
+button {
+outline: none;
+width: 70px;
+background-color: blue;
+color: white;
+border: none;
+border-radius: 5px;
+}
+button:hover {
+    background-color: rosybrown;
+}
