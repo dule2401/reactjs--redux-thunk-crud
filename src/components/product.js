@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import React, {  useEffect, useState } from 'react';
+import { connect,  useDispatch,  useSelector } from 'react-redux';
 import {getListProduct}  from './../redux/product/productAction'
 import Popup from './popup';
 
@@ -8,6 +8,11 @@ import './product.css';
 function Product() {
     const [isSelected , setIsSelected ] = useState(false);
     const data = useSelector(state => state.product);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getListProduct())
+    },[]);
     
     const handleUpdate = () => {
         setIsSelected(!isSelected);
@@ -64,7 +69,4 @@ function Product() {
     );
 }
 
-const mapStateToProps =(state) => {
-    return { products: state.products}
-}
-export default connect(mapStateToProps, getListProduct )(Product);
+export default (Product);
