@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import Header from "./components/header"
 import Home from './components/home';
 import Product from './components/product';
 
 function App() {
+
   return (
     <div className="App">
       <Header/>

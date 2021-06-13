@@ -1,4 +1,4 @@
-import { GET_LIST_PRODUCT, CREAT_PRODUCT } from "./productAction";
+import { GET_LIST_PRODUCT, CREAT_PRODUCT, DELETE_PRODUCT } from "./productAction";
 
 const initialState = []
 
@@ -7,6 +7,8 @@ const ProductReducer = (state = initialState, action) => {
         case GET_LIST_PRODUCT:
             return action.payload;
         case CREAT_PRODUCT:
+            return action.payload;
+        case DELETE_PRODUCT:
             return action.payload;
         default:
             return state;

@@ -1,24 +1,34 @@
 import React, {  useEffect, useState } from 'react';
-import { connect,  useDispatch,  useSelector } from 'react-redux';
-import {getListProduct}  from './../redux/product/productAction'
+import { useDispatch,  useSelector } from 'react-redux';
+import {deleteProduct, getListProduct}  from './../redux/product/productAction'
 import Popup from './popup';
 
 import './product.css';
 
 function Product() {
     const [isSelected , setIsSelected ] = useState(false);
-    const data = useSelector(state => state.product);
+    const data = useSelector(state => state.product) || [];
+    console.log(data);
+    const [time, setTime ] = useState(new Date().getTime());
+    const [productItem, setProductItem] = useState({});
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    console.log("time-----------",time);
+    useEffect(() =>  {
         dispatch(getListProduct())
-    },[]);
+    },[time]);
     
-    const handleUpdate = () => {
+    const handleUpdate = (e, state) => {
+        e.preventDefault();
         setIsSelected(!isSelected);
+        setProductItem(state);
+        console.log("state----------", state);
     }
-    const handleDelete = () => {
-        alert("cc2")
+    const handleDelete = (e,id) => {
+        e.preventDefault();
+        dispatch(deleteProduct(id));
+
+        setTime(new Date().getTime());
     }
     const handleAdd = () => {
         setIsSelected(!isSelected);
@@ -30,7 +40,7 @@ function Product() {
                     <h3>Product List</h3>
                     <button onClick={handleAdd}>add</button>
                 </div>
-                <Popup isSelected={isSelected} setIsSelected={setIsSelected}/>
+                <Popup isSelected={isSelected} setIsSelected={setIsSelected} setTime={setTime} productItem={productItem}/>
                 <table className="table table-striped" >
                     <thead>
                         <tr>
@@ -57,8 +67,8 @@ function Product() {
                                         <td>{product.EndDate}</td>
                                         <td>{product.Price}</td>
                                         <td>{product.NumberPhone}</td>
-                                        <td><button onClick={handleUpdate}>edit</button>{"   "}
-                                            <button onClick={handleDelete}>delete</button></td>
+                                        <td><button onClick={(e)=> handleUpdate(e,{...product} )}>edit</button>{"   "}
+                                            <button onClick={(e) => handleDelete(e ,product.id)}>delete</button></td>
                                     </tr>
                                 )}
                     </tbody>

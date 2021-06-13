@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createProduct } from '../redux/product/productAction';
 import './popup.css';
 
-function Popup({ isSelected, setIsSelected }) {
+function Popup({ isSelected, setIsSelected, setTime, productItem }) {
 
     const [products, setProducts] = useState({
         id: "",
@@ -14,19 +14,39 @@ function Popup({ isSelected, setIsSelected }) {
         Price: "",
         NumberPhone: "",
     })
+    useEffect(() => {
+        setProducts({ ...products, ...productItem })
+    }, [productItem])
 
+    console.log("productItem--------2", products);
     const dispatch = useDispatch();
     const handleSave = () => {
         dispatch(createProduct(products));
+        setTime(new Date());
+        setIsSelected(false)
+
+        const emty = {};
+        setProducts(
+            {...products, ...emty}
+        )
+    }
+
+    const handleCancel = () => {
         
+        const emty = {};
+        setProducts(
+            {...products, ...emty}
+        )
+        console.log(products);
+        setIsSelected(false);
     }
 
     const handleChangeInput = (e) => {
         setProducts(
-            {...products, [e.target.name]: e.target.value }
+            { ...products, [e.target.name]: e.target.value }
         )
     }
-    console.log("products", products);
+    console.log("productItem ---------", productItem);
     return (
         <div className={`p-container ${isSelected ? "selected" : ""}`}>
             <h3>Product Popup</h3>
@@ -89,7 +109,7 @@ function Popup({ isSelected, setIsSelected }) {
                     placeholder="NumberPhone input" />
                 <br />
             </form>
-            <button onClick={() => setIsSelected(!isSelected)}>Cancel</button> {""}
+            <button onClick={handleCancel}>Cancel</button> {""}
             <button onClick={handleSave}>Save</button>
         </div>
     );
